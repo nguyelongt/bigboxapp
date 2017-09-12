@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="j-text-utils">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/j-text-utils.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
