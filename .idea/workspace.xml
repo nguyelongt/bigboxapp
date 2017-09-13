@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="802719df-5722-4156-93ac-38c3656f95d1" name="Default" comment="Added Hashmap for Division">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/BigBoxApp/com/database/BigBoxDB.class" afterPath="$PROJECT_DIR$/out/production/BigBoxApp/com/database/BigBoxDB.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/BigBoxApp/com/presentation/BigBoxApp.class" afterPath="$PROJECT_DIR$/out/production/BigBoxApp/com/presentation/BigBoxApp.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/database/BigBoxDB.java" afterPath="$PROJECT_DIR$/src/com/database/BigBoxDB.java" />
     </list>
@@ -713,7 +715,7 @@
       <workItem from="1505258139611" duration="10224000" />
       <workItem from="1505278933626" duration="969000" />
       <workItem from="1505280004182" duration="405000" />
-      <workItem from="1505280462049" duration="851000" />
+      <workItem from="1505280462049" duration="1165000" />
     </task>
     <task id="LOCAL-00001" summary="Added Filter stores by Division">
       <created>1505275383902</created>
@@ -722,11 +724,18 @@
       <option name="project" value="LOCAL" />
       <updated>1505275383902</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added Hashmap for Division">
+      <created>1505281501363</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1505281501363</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88381000" />
+    <option name="totallyTimeSpent" value="88695000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
