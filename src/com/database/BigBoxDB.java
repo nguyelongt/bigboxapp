@@ -1,10 +1,9 @@
 package com.database;
 import com.business.Division;
 import com.business.Store;
-import dnl.utils.text.table.TextTable;
 import java.util.ArrayList;
 
-public class BigBoxDB {
+public class BigBoxDB implements BigBoxDAO{
 
     private ArrayList<Store> stores = new ArrayList<>();
 
@@ -28,27 +27,19 @@ public class BigBoxDB {
 
     }
 
-    public void arrayList() {
+    @Override
+    public ArrayList<Store> listAllStores() {
+        return stores;
+    }
 
-        Object[][] array = new Object[stores.size()][];
-        int i = 0;
-        for (Store s : stores)
-        {
-            array[i] = new Object[9];
-            array[i][0] = s.getId();
-            array[i][1] = s.getDivision();
-            array[i][2] = s.getStoreNumber();
-            array[i][3] = s.getSales();
-            array[i][4] = s.getName();
-            array[i][5] = s.getAddress();
-            array[i][6] = s.getCity();
-            array[i][7] = s.getState();
-            array[i][8] = s.getZip();
-            i++;
-        }
-
-        String columnNames[] = {"ID", "Divisions", "Store Number", "Sales", "Name", "Address", "City", "State", "Zip"};
-        TextTable tt = new TextTable(columnNames, array);
-        tt.printTable();
+    @Override
+    public ArrayList<Store> listAllStores(String d) {
+       ArrayList<Store> storesInDivision = new ArrayList<Store>();
+       for (Store s : stores) {
+           if (s.getDivision().divisionNumber.equalsIgnoreCase(d)) {
+               storesInDivision.add(s);
+           }
+       }
+       return storesInDivision;
     }
 }

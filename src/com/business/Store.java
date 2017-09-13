@@ -1,6 +1,8 @@
 package com.business;
 
-public class Store extends Facility {
+import java.io.Serializable;
+
+public class Store extends Facility implements Serializable {
     private String storeNumber;
     private double sales;
     private Division division;
