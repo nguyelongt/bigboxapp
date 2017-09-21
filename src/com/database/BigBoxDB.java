@@ -1,47 +1,86 @@
 package com.database;
 import com.business.Division;
 import com.business.Store;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BigBoxDB implements BigBoxDAO{
 
     private ArrayList<Store> stores = null;
+    HashMap<Integer, Division> divisionIdMap = new HashMap<>();
 
     BigBoxDB() {
-        setupArray();
+        try {
+            DatabaseUtility.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            DatabaseUtility dbutil = new DatabaseUtility();
+            dbutil.sqlScriptRunner();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        populateDivision();
     }
 
-    private void setupArray() {
-        HashMap<String, Division> divHMap = new HashMap<>();
-        divHMap.put("001", new Division(1, "001", "Cincinnati Division",
-                "1111 Division St.", "Cincinnati", "OH", 45555));
-        divHMap.put("111", new Division(2, "111", "Louisville Division",
-                "1222 Washington St.", "Louisville", "KY", 40205));
 
-        stores = new ArrayList<>();
-        stores.add(new Store(1, divHMap.get("001"), "00011", 25000, "Mason BigBox", "5711 Fields Ertel Rd.", "Mason", "OH", 45249));
-        stores.add(new Store(2, divHMap.get("001"), "00255", 27500, "Downtown BigBox", "9330 Main St.", "Cincinnati", "OH", 45202));
-        stores.add(new Store(3, divHMap.get("001"), "00172", 32555.55, "Goshen BigBox", "6777 Goshen Rd.", "Goshen", "OH", 45122));
-        stores.add(new Store(4, divHMap.get("001"), "00075", 21425.37, "Bridgetown BigBox", "3888 Race Rd.", "Cincinnati", "OH", 45211));
-        stores.add(new Store(5, divHMap.get("111"), "00001", 14432.77, "Louisville BigBox", "1111 Washington St.", "Louisville", "KY", 40206));
-        stores.add(new Store(6, divHMap.get("111"), "00044", 17555.11, "Lawrenceburg BigBox", "8000 Liberty St.", "Louisville", "KY", 40204));
-
+    public void populateDivision() {
+        String sqlQuery = "SELECT * FROM Divisions";
+        try (PreparedStatement ps = DatabaseUtility.connection.prepareStatement(sqlQuery);
+             ResultSet rs = ps.executeQuery();) {
+            while (rs.next()) {
+                int divID = rs.getInt(1);
+                String divNumber = rs.getString(2);
+                String name = rs.getString(3);
+                String address = rs.getString(4);
+                String city = rs.getString(5);
+                String state = rs.getString(6);
+                Integer zip = rs.getInt(7);
+                Division d = new Division(divID, divNumber, name, address, city, state, zip);
+                divisionIdMap.put(divID, d);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    @Override
-    public ArrayList<Store> listAllStores() {
-        return stores;
-    }
+
+        @Override
+        public ArrayList<Store> listAllStores () {
+            ArrayList<Store> storesInDivision = new ArrayList<>();
+            String sqlQuery = "SELECT * FROM Stores";
+            try (PreparedStatement ps = DatabaseUtility.connection.prepareStatement(sqlQuery);
+                 ResultSet rs = ps.executeQuery();) {
+                while (rs.next()) {
+                    int id = rs.getInt(1);
+                    int divID = rs.getInt(2);
+                    Division d = divisionIdMap.get(divID);
+                    String storeNbr = rs.getString(3);
+                    double sales = rs.getDouble(4);
+                    String name = rs.getString(5);
+                    String address = rs.getString(6);
+                    String city = rs.getString(7);
+                    String state = rs.getString(8);
+                    Integer zip = rs.getInt(9);
+                    Store s = new Store(id, d, storeNbr, sales, name, address, city, state, zip);
+                    storesInDivision.add(s);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return storesInDivision;
+        }
 
     @Override
     public ArrayList<Store> listAllStores(String d) {
-       ArrayList<Store> storesInDivision = new ArrayList<>();
-       for (Store s : stores) {
-           if (s.getDivision().divisionNumber.equalsIgnoreCase(d)) {
-               storesInDivision.add(s);
-           }
-       }
-       return storesInDivision;
+        return null;
     }
+
 }
